@@ -21,7 +21,7 @@ def install_models(*all_models):
         sql, references = connection.creation.sql_create_model(model, style, seen_models)
         seen_models.add(model)
         created_models.add(model)
-        for refto, refs in references.items():
+        for refto, refs in list(references.items()):
             pending_references.setdefault(refto, []).extend(refs)
             if refto in seen_models:
                 sql.extend(connection.creation.sql_for_pending_references(refto, style, pending_references))
